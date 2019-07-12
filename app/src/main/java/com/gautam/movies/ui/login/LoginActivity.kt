@@ -1,6 +1,7 @@
 package com.gautam.movies.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -14,8 +15,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-
+import com.gautam.movies.MainActivity
 import com.gautam.movies.R
+import org.jetbrains.anko.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -106,6 +108,9 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+
+        startActivity<MainActivity>()
+
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
