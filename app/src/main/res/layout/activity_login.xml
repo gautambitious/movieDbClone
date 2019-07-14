@@ -11,11 +11,12 @@ android:orientation="vertical">
 
         <ImageView
             android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:id="@+id/loginImageView"
+            android:layout_marginBottom="40dp"
             android:src="@drawable/login_image"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="100dp"
              />
 
             <EditText
@@ -25,8 +26,62 @@ android:orientation="vertical">
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:drawableStart="@drawable/username_picture"
-                    android:textSize="18dp"
+                    android:textSize="30sp"
+                    android:id="@+id/userNameText"
                     android:hint="User Name"
-                    android:background="#ffffff"
+                    android:padding="5sp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/edit_text_background"
             />
+            <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:gravity="center_horizontal"
+            android:textSize="30sp"
+            android:hint="Password"
+            android:textColor="@color/colorWhite"
+            android:padding="5sp"
+            android:drawableStart="@drawable/password_background"
+            android:background="@drawable/edit_text_background"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/userNameText"
+            android:id="@+id/passwordText"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordText"
+            android:textColor="@color/colorWhite"
+            android:text="Forgot Password?"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/forgotPasswordButton"
+    />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginButton"
+                android:text="Login"
+                android:layout_below="@id/forgotPasswordButton"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:background="@drawable/login_button_background"
+        />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/signUpButton"
+            android:text="SignUp"
+            android:layout_below="@id/loginButton"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/login_button_background"
+    />
+
+
+
 </RelativeLayout>

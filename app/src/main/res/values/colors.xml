@@ -6,4 +6,6 @@
     <color name="colorBackground1">#2C273C</color>
     <color name="colorBackground2">#2F4F4F</color>
     <color name="colorLoginButton">#CE2A5E</color>
+    <color name="colorEditTextBackground">#FFC2AA</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>
