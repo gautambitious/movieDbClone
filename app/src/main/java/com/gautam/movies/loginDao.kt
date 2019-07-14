@@ -11,4 +11,7 @@ interface LoginDao{
 
     @Query("Select password from Login where email=:username")
     fun getPassword(username:String):String
+
+    @Query("Select name from Login where email=:email")
+    fun getName(email:String):String
 }

@@ -16,7 +16,9 @@ import android.view.Menu
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.*
 import android.content.Intent
-
+import androidx.core.content.edit
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +33,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity<LoginActivity>()
             this@MainActivity.finish()
         }
+//        else{
+//            navHeaderEmail.setText("My nigga cool")
+//            navHeaderUserName.setText("dfdfdf")
+//        }
+//        else{
+//        navHeaderEmail.text=prefs.getString(R.string.loggedin_email_key.toString(),"user@example.com").toString()
+//        navHeaderUserName.text=login.db.loginDao().getName(prefs.getString(R.string.loggedin_email_key.toString(),"user@example.com").toString()).toString()
+//    }
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -93,7 +103,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_share -> {
 
             }
-            R.id.nav_send -> {
+            R.id.nav_logout-> {
+                alert("Log out of your Account?") {
+                    yesButton {
+                        prefs.edit {
+                            this.putBoolean(R.string.login_key.toString(),false)
+                        }
+                        startActivity<LoginActivity>()
+                        this@MainActivity.finish()
+                    }
+                    noButton {
+                        drawer_layout.closeDrawer(GravityCompat.START)
+                    }
+                }.show()
 
             }
         }

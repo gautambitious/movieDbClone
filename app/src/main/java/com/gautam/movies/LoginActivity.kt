@@ -41,11 +41,17 @@ val db by lazy {
                 startActivity<MainActivity>()
                 this@LoginActivity.finish()
             }
+        else{
+                toast("Lol")
+            }
     }
 
     fun loginCheck(email:String): Boolean {
-        if(db.loginDao().getPassword(email)==passwordText.text.toString())
-            return true
+        if(db.loginDao().getPassword(email)==passwordText.text.toString()){
+            prefs.edit {
+                this.putString(R.string.loggedin_email_key.toString(),email)
+            }
+            return true}
         return false
     }
 
