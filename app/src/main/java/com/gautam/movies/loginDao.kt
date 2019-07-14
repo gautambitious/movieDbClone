@@ -14,4 +14,5 @@ interface LoginDao{
 
     @Query("Select name from Login where email=:email")
     fun getName(email:String):String
+
 }

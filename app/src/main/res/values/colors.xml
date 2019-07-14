@@ -8,4 +8,5 @@
     <color name="colorLoginButton">#CE2A5E</color>
     <color name="colorEditTextBackground">#FFC2AA</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorSignupHeading">#F7EB7C</color>
 </resources>

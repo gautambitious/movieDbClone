@@ -30,6 +30,9 @@ val db by lazy {
         loginButton.setOnClickListener{
             loginButtonFunction()
         }
+        signUpButton.setOnClickListener {
+            startActivity<SignUpActivity>()
+        }
     }
 
     fun loginButtonFunction() {
