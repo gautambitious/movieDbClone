@@ -8,7 +8,6 @@
         android:background="@drawable/login_background"
         tools:context=".LoginActivity"
 android:orientation="vertical">
-
         <ImageView
             android:layout_width="200dp"
             android:layout_height="100dp"
@@ -24,11 +23,12 @@ android:orientation="vertical">
                     android:layout_height="wrap_content"
                     android:layout_below="@id/loginImageView"
                     android:layout_centerHorizontal="true"
+                    android:inputType="textEmailAddress"
                     android:layout_centerVertical="true"
                     android:drawableStart="@drawable/username_picture"
-                    android:textSize="30sp"
+                    android:textSize="20sp"
                     android:id="@+id/userNameText"
-                    android:hint="User Name"
+                    android:hint="Email"
                     android:padding="5sp"
                     android:textColor="@color/colorWhite"
                     android:background="@drawable/edit_text_background"
@@ -38,7 +38,7 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:gravity="center_horizontal"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:hint="Password"
             android:textColor="@color/colorWhite"
             android:padding="5sp"

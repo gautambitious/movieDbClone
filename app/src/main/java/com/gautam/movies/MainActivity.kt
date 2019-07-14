@@ -1,5 +1,6 @@
 package com.gautam.movies
 
+import android.content.Context
 import android.os.Bundle
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,6 +15,9 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.*
+import android.content.Intent
+
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -21,6 +25,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        prefs=getPreferences(Context.MODE_PRIVATE)
+        val login=LoginActivity()
+        if(!login.isLoggedIn()){
+            startActivity<LoginActivity>()
+            this@MainActivity.finish()
+        }
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val fab: FloatingActionButton = findViewById(R.id.fab)

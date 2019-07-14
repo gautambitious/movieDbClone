@@ -5,10 +5,10 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface loginDao{
+interface LoginDao{
     @Insert
     fun insertRow(login:Login)
 
-    @Query("Select password from Login where username=:username")
+    @Query("Select password from Login where email=:username")
     fun getPassword(username:String):String
 }
