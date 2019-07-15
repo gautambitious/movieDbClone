@@ -23,7 +23,6 @@ val db by lazy {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-//        db.loginDao().insertRow(Login("hello","hello@gmail.com","hello"))
         forgotPasswordButton.setOnClickListener {
             toast("Ma nigga actually works!")
         }
@@ -50,7 +49,7 @@ val db by lazy {
     }
 
     fun loginCheck(email:String): Boolean {
-        if(db.loginDao().getPassword(email)==passwordText.text.toString()){
+        if(db.loginDao().getPassword(email)==passwordText.text.toString().toLowerCase()){
             prefs.edit {
                 this.putString(R.string.loggedin_email_key.toString(),email)
             }
