@@ -3,14 +3,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.Preference
-import android.util.Log
 import androidx.core.content.edit
 import androidx.room.Room
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.*
-import java.lang.Exception
 
 lateinit var prefs:SharedPreferences
 class LoginActivity : AppCompatActivity() {
