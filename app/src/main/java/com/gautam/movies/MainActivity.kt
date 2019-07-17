@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -15,10 +14,9 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.*
-import android.content.Intent
 import androidx.core.content.edit
+import com.gautam.movies.genreFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -91,8 +89,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_home -> {
                 // Handle the camera action
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_genres -> {
+                val bundle=Bundle()
+                var frag=genreFragment()
+                frag.arguments=bundle
+                supportFragmentManager.beginTransaction().replace(R.id.mainContent,frag).commit()
             }
             R.id.nav_slideshow -> {
 
@@ -123,4 +124,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
 }

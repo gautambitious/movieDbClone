@@ -1,13 +1,17 @@
 package com.gautam.movies
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+import com.gautam.movies.R
+import com.google.gson.GsonBuilder
+import okhttp3.*
+import org.jetbrains.anko.support.v4.runOnUiThread
+import java.io.IOException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,87 +20,46 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [genreFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [genreFragment.newInstance] factory method to
- * create an instance of this fragment.
  *
  */
+val apiKey="8dfb93fdb69f627b174e4f5cb6b4444f"
 class genreFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        getGenre()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_genre, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
+    fun getGenre(){
+        val client = OkHttpClient()
+        var res=""
+        val url="https://api.themoviedb.org/3/genre/movie/list?api_key=$apiKey&language=en-US"
+        val request = Request.Builder()
+            .url(url)
+            .build()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment genreFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            genreFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.i("workk","didn't work lol")
             }
+
+            override fun onResponse(call: Call, response: Response) {
+                res = response.body?.string()!!
+                Log.i("workk",res)
+                val gson=GsonBuilder().create()
+
+                val gen=gson.fromJson(res,Array<genres>::class.java)
+                runOnUiThread {
+                    var names=gen.size
+                Log.i("workk",names.toString())}
+            }
+
+        })
+
+
     }
 }

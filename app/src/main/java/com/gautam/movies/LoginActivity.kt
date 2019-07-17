@@ -23,6 +23,7 @@ val db by lazy {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        prefs=getPreferences(Context.MODE_PRIVATE)
         forgotPasswordButton.setOnClickListener {
             toast("Ma nigga actually works!")
         }
