@@ -2,6 +2,7 @@ package com.gautam.movies
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.core.view.GravityCompat
@@ -12,11 +13,19 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.ArrayAdapter
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.*
 import androidx.core.content.edit
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.gautam.movies.com.gautam.movies.GetMovies
 import com.gautam.movies.genreFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -26,8 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         prefs=getPreferences(Context.MODE_PRIVATE)
-        val login=LoginActivity()
-        if(!login.isLoggedIn()){
+        if(prefs.getBoolean(R.string.login_key.toString(),false)){
             startActivity<LoginActivity>()
             this@MainActivity.finish()
         }
@@ -39,6 +47,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        navHeaderEmail.text=prefs.getString(R.string.loggedin_email_key.toString(),"user@example.com").toString()
 //        navHeaderUserName.text=login.db.loginDao().getName(prefs.getString(R.string.loggedin_email_key.toString(),"user@example.com").toString()).toString()
 //    }
+        nowShowingView.layoutManager=GridLayoutManager(this,1,GridLayoutManager.HORIZONTAL,false)
+        getMovie()
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -56,6 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+        navView.menu.getItem(0).isChecked = true
     }
 
     override fun onBackPressed() {
@@ -123,6 +134,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+    private fun getMovie() {
+        val service=RetrofitClientInstance.retrofitInstance?.create(GetMovies::class.java)
+        val call=service?.getNowShowing()
+        call?.enqueue(object: retrofit2.Callback<MovieList>{
+            override fun onFailure(call: Call<MovieList>, t: Throwable) {
+                toast("Didn't work")
+            }
+
+            override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
+                Log.i("workk",response.body()?.toString())
+                runOnUiThread{
+                    val res=response.body()?.movies
+                    runOnUiThread{
+                    if(res != null){
+                        nowShowingView.adapter=MoviesAdapter(res,this@MainActivity)}
+                    else{
+                        toast("you have to work on this")
+                    }
+                }}
+            }
+        })
     }
 
 }

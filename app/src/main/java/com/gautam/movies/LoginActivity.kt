@@ -21,7 +21,7 @@ val db by lazy {
         setContentView(R.layout.activity_login)
         prefs=getPreferences(Context.MODE_PRIVATE)
         forgotPasswordButton.setOnClickListener {
-            toast("Ma nigga actually works!")
+            startActivity<ForgotPasswordActivity>()
         }
         loginButton.setOnClickListener{
             loginButtonFunction()
@@ -54,7 +54,4 @@ val db by lazy {
         return false
     }
 
-    fun isLoggedIn():Boolean{
-        return prefs.getBoolean(R.string.login_key.toString(),false)
-    }
 }

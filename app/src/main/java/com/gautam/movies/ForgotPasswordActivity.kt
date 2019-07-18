@@ -5,6 +5,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 
 import kotlinx.android.synthetic.main.activity_forgot_password.*
+import kotlinx.android.synthetic.main.content_forgot_password.*
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -12,11 +13,13 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        val content=forgotPasswordMain
+        content.layoutResource=R.layout.content_forgot_password
+        content.inflate()
+//        button.setOnClickListener {
+//            content.layoutResource=R.layout.forgot_password_layout
+//            content.inflate()
+//        }
     }
 
 }
