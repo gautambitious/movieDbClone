@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         prefs=getPreferences(Context.MODE_PRIVATE)
-        if(prefs.getBoolean(R.string.login_key.toString(),false)){
+        if(!prefs.getBoolean(R.string.login_key.toString(),false)){
             startActivity<LoginActivity>()
             this@MainActivity.finish()
         }

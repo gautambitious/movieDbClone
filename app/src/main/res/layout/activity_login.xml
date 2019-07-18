@@ -45,7 +45,7 @@ android:orientation="vertical">
             android:drawableStart="@drawable/password_background"
             android:background="@drawable/edit_text_background"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/userNameText"
+           android:layout_below="@+id/userNameText"
             android:id="@+id/passwordText"/>
 
     <TextView
