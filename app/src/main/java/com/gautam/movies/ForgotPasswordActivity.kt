@@ -3,6 +3,7 @@ package com.gautam.movies
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.isVisible
 
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.content_forgot_password.*
@@ -13,13 +14,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
         setSupportActionBar(toolbar)
-        val content=forgotPasswordMain
-        content.layoutResource=R.layout.content_forgot_password
-        content.inflate()
-//        button.setOnClickListener {
-//            content.layoutResource=R.layout.forgot_password_layout
-//            content.inflate()
-//        }
+        secondLayout.isVisible=false
+        button.setOnClickListener {
+            secondLayout.isVisible=true
+            firstLayout.isVisible=false
+        }
     }
 
 }
