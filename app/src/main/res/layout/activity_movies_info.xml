@@ -15,9 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
-        android:id="@+id/toolbar"
 >
-
+<Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/toolbar"
+></Toolbar>
 </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
