@@ -3,6 +3,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.edit
 import androidx.room.Room
 import kotlinx.android.synthetic.main.activity_login.*
@@ -33,10 +34,11 @@ val db by lazy {
 
     fun loginButtonFunction() {
             if(loginCheck(userNameText.text.toString())){
-                toast("Welcome my nigger")
+                toast("Welcome! ${db.loginDao().getName(userNameText.text.toString())}")
                 prefs.edit {
-                    this.putBoolean(R.string.login_key.toString(),true)
+                    this.putBoolean(login_key,true)
                 }
+                Log.i("workk","login check ${prefs.getBoolean(login_key,false)}")
                 startActivity<MainActivity>()
                 this@LoginActivity.finish()
             }
@@ -47,9 +49,6 @@ val db by lazy {
 
     fun loginCheck(email:String): Boolean {
         if(db.loginDao().getPassword(email)==passwordText.text.toString().toLowerCase()){
-            prefs.edit {
-                this.putString(R.string.loggedin_email_key.toString(),email)
-            }
             return true}
         return false
     }

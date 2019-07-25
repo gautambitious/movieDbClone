@@ -35,7 +35,7 @@ class genreFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_genre, container, false)
-        adapter=ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1, getGenre() )
+        adapter=ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,getGenre())
         view.genreListView.adapter=adapter
         return view
     }

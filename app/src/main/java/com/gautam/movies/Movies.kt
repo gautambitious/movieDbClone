@@ -1,7 +1,6 @@
 package com.gautam.movies
 
 import com.google.gson.annotations.SerializedName
-import java.sql.RowId
 
 data class Movie(
     val title:String,
@@ -9,6 +8,8 @@ data class Movie(
     val id: Int,
     @SerializedName("vote_average")
     val rating:Double,
+    val cover_path:String,
+    @SerializedName("backdrop_path")
     val poster_path:String,
     val genre_ids: ArrayList<Int>,
     val release_date:String,

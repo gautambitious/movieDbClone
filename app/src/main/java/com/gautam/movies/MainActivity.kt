@@ -18,27 +18,39 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.design.*
 import androidx.core.content.edit
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.gautam.movies.com.gautam.movies.GetMovies
 import com.gautam.movies.genreFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
+import org.jetbrains.anko.support.v4.runOnUiThread
+import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback
-
+val login_key="ISLOGGEDIN"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         prefs=getPreferences(Context.MODE_PRIVATE)
-        if(!prefs.getBoolean(R.string.login_key.toString(),false)){
-            startActivity<LoginActivity>()
-            this@MainActivity.finish()
-        }
+        Log.i("workk",prefs.getBoolean(login_key,false).toString())
+//        val bundle=Bundle()
+//        var frag=Home()
+//        frag.arguments=bundle
+//        supportFragmentManager.beginTransaction().replace(R.id.mainContent,frag).commit()
+        nowShowingView.layoutManager= GridLayoutManager(this,1, GridLayoutManager.HORIZONTAL,false)
+        getMovie()
+        val helper= LinearSnapHelper()
+        helper.attachToRecyclerView(nowShowingView)
+//        if(!prefs.getBoolean(login_key,false)){
+//            startActivity<LoginActivity>()
+//            this@MainActivity.finish()
+//        }
 //        else{
 //            navHeaderEmail.setText("My nigga cool")
 //            navHeaderUserName.setText("dfdfdf")
@@ -47,16 +59,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        navHeaderEmail.text=prefs.getString(R.string.loggedin_email_key.toString(),"user@example.com").toString()
 //        navHeaderUserName.text=login.db.loginDao().getName(prefs.getString(R.string.loggedin_email_key.toString(),"user@example.com").toString()).toString()
 //    }
-        nowShowingView.layoutManager=GridLayoutManager(this,1,GridLayoutManager.HORIZONTAL,false)
-        getMovie()
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            view.longSnackbar("Open ma nigga to see","Sure!"){
-                startActivity<LoginActivity>()
-            }
-        }
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
@@ -98,7 +104,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                val bundle=Bundle()
+                var frag=Home()
+                frag.arguments=bundle
+                supportFragmentManager.beginTransaction().replace(R.id.mainContent,frag).commit()
             }
             R.id.nav_genres -> {
                 val bundle=Bundle()
@@ -119,7 +128,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 alert("Log out of your Account?") {
                     yesButton {
                         prefs.edit {
-                            this.putBoolean(R.string.login_key.toString(),false)
+                            this.putBoolean(login_key,false)
                         }
                         startActivity<LoginActivity>()
                         this@MainActivity.finish()
@@ -135,6 +144,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     private fun getMovie() {
         val service=RetrofitClientInstance.retrofitInstance?.create(GetMovies::class.java)
         val call=service?.getNowShowing()
@@ -148,12 +158,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 runOnUiThread{
                     val res=response.body()?.movies
                     runOnUiThread{
-                    if(res != null){
-                        nowShowingView.adapter=MoviesAdapter(res,this@MainActivity)}
-                    else{
-                        toast("you have to work on this")
-                    }
-                }}
+                        if(res != null){
+                            nowShowingView.adapter=MoviesAdapter(res,this@MainActivity)}
+                        else{
+                            toast("you have to work on this")
+                        }
+                    }}
             }
         })
     }

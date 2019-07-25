@@ -3,8 +3,6 @@ package com.gautam.movies
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
-
 @Dao
 interface LoginDao{
     @Insert
@@ -15,6 +13,4 @@ interface LoginDao{
 
     @Query("Select name from Login where email=:email")
     fun getName(email:String):String
-
-    @Update()
 }
