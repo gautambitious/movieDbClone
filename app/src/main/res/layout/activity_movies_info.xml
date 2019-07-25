@@ -8,19 +8,27 @@
         tools:context=".MoviesInfo">
 
     <com.google.android.material.appbar.AppBarLayout
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay">
 <com.google.android.material.appbar.CollapsingToolbarLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_scrollFlags="exitUntilCollapsed|scroll"
         android:background="?attr/colorPrimary"
 >
-<Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/toolbar"
-></Toolbar>
+    <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/toolbar"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_collapseMode="pin"
+    ></Toolbar>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/nigga"
+    />
 </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
